@@ -97,9 +97,13 @@ def upload_file(request):
             return Response({
                 'message': 'success'
             })
-        return Response("Only pptx, docx and xlsx files are allowed")
+        return Response({
+            "message": "Only pptx, docx and xlsx files are allowed"
+        })
     
-    return Response({"Only Operation User are allowed to upload files"})
+    return Response({
+        "message":"Only Operation User are allowed to upload files"
+        })
 
 @api_view(['GET'])
 def get_files(request):
@@ -113,7 +117,9 @@ def get_files(request):
     files = Files.objects.all().only(fields)
     serializer = FilesSerializer(files, many=True)
     print(serializer)
-    return Response(serializer.data)
+    return Response({
+        'files': serializer.data
+        })
 
 @api_view(['POST'])
 def download_file(request):
